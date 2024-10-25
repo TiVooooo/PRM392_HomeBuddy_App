@@ -6,15 +6,15 @@
     <item
         android:id="@+id/navigation_cleanup"
         android:icon="@drawable/ic_service"
-        android:title="Search" />
+        android:title="Service" />
     <item
         android:id="@+id/navigation_cart"
         android:icon="@drawable/ic_cart"
-        android:title="Profile" />
+        android:title="Cart" />
     <item
         android:id="@+id/navigation_order"
         android:icon="@drawable/ic_order"
-        android:title="Profile" />
+        android:title="Order" />
     <item
         android:id="@+id/navigation_account"
         android:icon="@drawable/ic_account"
