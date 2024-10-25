@@ -8,26 +8,27 @@
     <fragment
         android:id="@+id/navigation_account"
         android:name="com.example.prm392_homebuddy_app.ui.account.AccountFragment"
-        android:label="fragment_account"
+        android:label=""
         tools:layout="@layout/fragment_account" />
     <fragment
         android:id="@+id/navigation_cart"
         android:name="com.example.prm392_homebuddy_app.ui.cart.CartFragment"
-        android:label="fragment_cart"
+        android:label=""
         tools:layout="@layout/fragment_cart" />
     <fragment
         android:id="@+id/navigation_cleanup"
+        android:label=""
+
         android:name="com.example.prm392_homebuddy_app.ui.service.CleanUpFragment"
-        android:label="fragment_clean_up"
         tools:layout="@layout/fragment_clean_up" />
     <fragment
         android:id="@+id/navigation_order"
         android:name="com.example.prm392_homebuddy_app.ui.order.OrderFragment"
-        android:label="fragment_order"
+        android:label=""
         tools:layout="@layout/fragment_order" />
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.example.prm392_homebuddy_app.ui.home.HomeFragment"
-        android:label="fragment_home"
+        android:label=""
         tools:layout="@layout/fragment_home" />
 </navigation>

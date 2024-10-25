@@ -7,7 +7,6 @@
     android:background="#F8FAFC"
     tools:context=".ui.service.CleanUpFragment">
 
-    <!-- Title Bar -->
     <LinearLayout
         android:id="@+id/titleBar"
         android:layout_width="0dp"
@@ -19,18 +18,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:gravity="center_vertical">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Cleaning Supplies"
-            android:textColor="#0e141b"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_gravity="center_horizontal"
-            android:layout_weight="1"
-            android:gravity="center" />
-
         <ImageButton
             android:id="@+id/searchButton"
             android:layout_width="48dp"
@@ -65,7 +52,6 @@
             android:textColor="#0e141b" />
     </LinearLayout>
 
-    <!-- Tabs -->
     <HorizontalScrollView
         android:id="@+id/tabContainer"
         android:layout_width="0dp"
@@ -94,16 +80,6 @@
         </LinearLayout>
     </HorizontalScrollView>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/productRecyclerView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:padding="16dp"
-        app:layout_constraintTop_toBottomOf="@id/tabContainer"
-        app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
         android:layout_width="0dp"
@@ -113,5 +89,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <ListView
+        android:id="@+id/item_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tabContainer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/bottomNavigation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
