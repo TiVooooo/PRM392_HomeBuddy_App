@@ -5,6 +5,9 @@ public class Service {
     public Double price;
     public int ImageUrl;
 
+    public  String duration;
+    public  String description;
+    public String HelperName;
     public Service(String name, Double price, int imageUrl) {
         this.name = name;
         this.price = price;
@@ -13,6 +16,30 @@ public class Service {
 
     public String getName() {
         return name;
+    }
+
+    public String getHelperName() {
+        return HelperName;
+    }
+
+    public void setHelperName(String helperName) {
+        HelperName = helperName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
     }
 
     public void setName(String name) {
