@@ -1,6 +1,9 @@
 package com.example.prm392_homebuddy_app;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +20,7 @@ public class UserProfileActivity extends AppCompatActivity {
     private TextView textViewName, textViewEmail, textViewPhone, textViewAddress, textViewRole, textViewCreatedAt;
     private ImageView imageViewAvatar;
     private UserRepository userRepository;
+    private Button btnEditProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +35,19 @@ public class UserProfileActivity extends AppCompatActivity {
         textViewAddress = findViewById(R.id.textViewAddress);
         textViewRole = findViewById(R.id.textViewRole);
         textViewCreatedAt = findViewById(R.id.textViewCreatedAt);
+        btnEditProfile = findViewById(R.id.buttonEditProfile);
 
-        // Khởi tạo UserRepository
+        btnEditProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(UserProfileActivity.this, EditUserActivity.class);
+                startActivity(intent);
+            }
+        });
+
         userRepository = new UserRepository();
 
-        // Gọi hàm để lấy dữ liệu người dùng
+
         fetchUserProfile(1); // ID người dùng mẫu, thay đổi khi cần
     }
 
