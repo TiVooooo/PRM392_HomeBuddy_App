@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.example.prm392_homebuddy_app.ViewModel.CheckoutViewModel;
 import com.example.prm392_homebuddy_app.ui.home.HomeFragment;
 import com.example.prm392_homebuddy_app.ui.order.OrderFragment;
+import com.example.prm392_homebuddy_app.utils.PreferenceUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
@@ -66,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
                     title.setText("Dashboard");
                 } else if (destination.getId() == R.id.navigation_cleanup) {
                     title.clearComposingText();
+
                     title.setText("Cleaning Supplies");
                 }else if(destination.getId() == R.id.navigation_account) {
                     title.clearComposingText();
