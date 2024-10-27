@@ -55,7 +55,6 @@ public class UserProfileActivity extends AppCompatActivity {
     }
 
     private void displayUserData(Map<String, Object> userData) {
-        // Lấy dữ liệu từ userData và gán vào các TextView/ImageView
         textViewName.setText((String) userData.get("name"));
         textViewEmail.setText((String) userData.get("email"));
         textViewPhone.setText((String) userData.get("phone"));
@@ -63,7 +62,6 @@ public class UserProfileActivity extends AppCompatActivity {
         textViewRole.setText((String) userData.get("role"));
         textViewCreatedAt.setText((String) userData.get("createdAt"));
 
-        // Hiển thị ảnh đại diện nếu có
         String avatarUrl = (String) userData.get("avatar");
         if (avatarUrl != null && !avatarUrl.isEmpty()) {
             Glide.with(this)
@@ -73,7 +71,7 @@ public class UserProfileActivity extends AppCompatActivity {
                     .into(imageViewAvatar);
 
         } else {
-            imageViewAvatar.setImageResource(R.drawable.ic_account); 
+            imageViewAvatar.setImageResource(R.drawable.ic_account);
         }
     }
 }

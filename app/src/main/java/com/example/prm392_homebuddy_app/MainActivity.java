@@ -1,5 +1,6 @@
 package com.example.prm392_homebuddy_app;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -57,8 +58,12 @@ public class MainActivity extends AppCompatActivity {
                     title.setText("Dashboard");
                 } else if (destination.getId() == R.id.navigation_cleanup) {
                     title.clearComposingText();
-
                     title.setText("Cleaning Supplies");
+                }else if(destination.getId() == R.id.navigation_account) {
+                    title.clearComposingText();
+                    title.setText("Profile");
+                    Intent intent = new Intent(MainActivity.this, UserProfileActivity.class);
+                    startActivity(intent);
                 } else {
                     title.setText("Title");
                 }
