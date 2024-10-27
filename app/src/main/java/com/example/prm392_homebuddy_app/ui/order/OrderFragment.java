@@ -36,25 +36,19 @@ public class OrderFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        edtDate = view.findViewById(R.id.edtBookingDate);
 
-        edtDate = view.findViewById(R.id.edtServiceDate);
+        final Calendar c = Calendar.getInstance();
+        int year = c.get(Calendar.YEAR);
+        int month = c.get(Calendar.MONTH);
+        int day = c.get(Calendar.DAY_OF_MONTH);
 
-        edtDate.setOnClickListener(v -> {
-            // Get the current date
-            final Calendar c = Calendar.getInstance();
-            int year = c.get(Calendar.YEAR);
-            int month = c.get(Calendar.MONTH);
-            int day = c.get(Calendar.DAY_OF_MONTH);
+        String todayDate = day + "/" + (month + 1) + "/" + year;
 
-            // Create a DatePickerDialog
-            DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
-                    (DatePicker view1, int selectedYear, int selectedMonth, int selectedDay) -> {
-                        // Set the selected date in the EditText
-                        edtDate.setText(selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear);
-                    }, year, month, day);
+        edtDate.setText(todayDate);
 
-            datePickerDialog.show();
-        });
+        edtDate.setFocusable(false);
+        edtDate.setClickable(false);
     }
 
     @Override
