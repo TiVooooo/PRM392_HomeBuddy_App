@@ -27,9 +27,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="LoginActivity">
-
-        </activity>
+        <activity android:name="LoginActivity"/>
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".RegisterHelperActivity" />
 
         <activity android:name=".UserProfileActivity" />
         <activity android:name=".EditUserActivity" />

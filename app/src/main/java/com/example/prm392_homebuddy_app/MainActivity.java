@@ -35,17 +35,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Kiểm tra trạng thái đăng nhập
-        if (!PreferenceUtils.isLoggedIn(this)) {
-            // Chuyển hướng đến LoginActivity nếu chưa đăng nhập
-            Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
-            startActivity(loginIntent);
-            finish(); // Đóng MainActivity để tránh quay lại
-            return;
-        }
-
-        // Tiếp tục với MainActivity nếu đã đăng nhập
-        setContentView(R.layout.activity_main);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.toolbar.getRoot());  // This still sets the custom Toolbar as ActionBar

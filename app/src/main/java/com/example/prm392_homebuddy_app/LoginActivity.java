@@ -28,7 +28,14 @@ public class LoginActivity extends AppCompatActivity {
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
     }
-
+    public void viewRegisterClicked(View view) {
+        Intent registerIntent = new Intent(LoginActivity.this, RegisterActivity.class);
+        startActivity(registerIntent);
+    }
+    public void viewRegisterHelperClicked(View view) {
+        Intent registerIntent = new Intent(LoginActivity.this, RegisterHelperActivity.class);
+        startActivity(registerIntent);
+    }
     public void onLoginClick(View view) {
         String email = editTextEmail.getText().toString();
         String password = editTextPassword.getText().toString();

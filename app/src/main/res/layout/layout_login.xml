@@ -77,7 +77,8 @@
             android:textColor="@color/primaryTextColor"
             android:text="@string/login_signup_hint"
             android:onClick="viewRegisterClicked"
-            android:layout_marginTop="@dimen/loginViewsMargin"/>
+            android:layout_marginTop="@dimen/loginViewsMargin"
+            />
 
         <TextView
             android:id="@+id/signup_helper"
@@ -86,7 +87,7 @@
             android:textStyle="bold"
             android:textColor="@color/primaryTextColor"
             android:text="Sign up Helper account? Sign Up"
-            android:onClick="viewRegisterClicked"
+            android:onClick="viewRegisterHelperClicked"
             android:layout_marginTop="@dimen/loginViewsMargin"/>
 
     </LinearLayout>
