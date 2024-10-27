@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.prm392_homebuddy_app.ViewModel.CheckoutViewModel;
+import com.example.prm392_homebuddy_app.ui.home.HomeFragment;
+import com.example.prm392_homebuddy_app.ui.order.OrderFragment;
 import com.example.prm392_homebuddy_app.utils.PreferenceUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -12,6 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
@@ -24,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
+    private CheckoutViewModel checkoutViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.toolbar.getRoot());  // This still sets the custom Toolbar as ActionBar
+
+        checkoutViewModel = new ViewModelProvider(this).get(CheckoutViewModel.class);
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         appBarConfiguration = new AppBarConfiguration.Builder(
@@ -72,6 +80,11 @@ public class MainActivity extends AppCompatActivity {
                     title.clearComposingText();
 
                     title.setText("Cleaning Supplies");
+                }else if(destination.getId() == R.id.navigation_account) {
+                    title.clearComposingText();
+                    title.setText("Profile");
+                    Intent intent = new Intent(MainActivity.this, UserProfileActivity.class);
+                    startActivity(intent);
                 } else {
                     title.setText("Title");
                 }
