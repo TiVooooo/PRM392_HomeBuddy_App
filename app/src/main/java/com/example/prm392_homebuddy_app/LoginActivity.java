@@ -10,8 +10,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.prm392_homebuddy_app.API.LoginService;
 import com.example.prm392_homebuddy_app.MainActivity;
 import com.example.prm392_homebuddy_app.R;
+import com.example.prm392_homebuddy_app.model.LoginRequest;
 import com.example.prm392_homebuddy_app.model.LoginResponse;
 import com.example.prm392_homebuddy_app.utils.PreferenceUtils;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.TimeZone;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -41,17 +47,43 @@ public class LoginActivity extends AppCompatActivity {
         String password = editTextPassword.getText().toString();
         String deviceToken = "";
 
-        LoginService.getLoginAPI().login(email, password, deviceToken).enqueue(new Callback<LoginResponse>() {
+        LoginRequest request = new LoginRequest(email,password,deviceToken);
+        LoginService.getLoginAPI().login(request).enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                if (response.isSuccessful() && response.body() != null) {
+                if (response.body() != null) {
                     LoginResponse loginResponse = response.body();
-                    PreferenceUtils.setLoggedIn(LoginActivity.this, true); // Đánh dấu đã đăng nhập
+                    if (loginResponse.getStatus() == 1) {
+                        LoginResponse.Data data = loginResponse.getData();
 
-                    // Chuyển hướng về MainActivity
-                    Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
-                    startActivity(mainIntent);
-                    finish();
+                        String token = data.getToken();
+                        String role = data.getRole();
+                        String expirationString = data.getExpiration();
+
+                        // Chuyển expiration từ UTC sang mili giây
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
+                        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+                        long expirationTime;
+                        try {
+                            expirationTime = sdf.parse(expirationString).getTime();
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                            Toast.makeText(LoginActivity.this, "Invalid expiration format", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+
+                        // Lưu thông tin đăng nhập
+                        PreferenceUtils.setLoggedIn(LoginActivity.this, true);
+                        PreferenceUtils.saveToken(LoginActivity.this, token, expirationTime, role);
+
+                        Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
+                        Toast.makeText(LoginActivity.this, "Login success!", Toast.LENGTH_SHORT).show();
+                        mainIntent.putExtra("USER_ROLE", role);
+                        startActivity(mainIntent);
+                        finish();
+                    } else {
+                        Toast.makeText(LoginActivity.this, loginResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
                 } else {
                     Toast.makeText(LoginActivity.this, "Login failed! Response Code: " + response.code(), Toast.LENGTH_SHORT).show();
                 }

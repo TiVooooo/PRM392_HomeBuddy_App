@@ -47,15 +47,15 @@
                 android:inputType="textPassword"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/forgot"
-            style="@style/viewParent"
-            android:text="Forgot Password?"
-            android:textColor="@color/primaryTextColor"
-            android:textSize="@dimen/newsMoreTextSize"
-            android:layout_gravity="end"
-            android:onClick="viewForgotPAssword"
-            android:layout_marginTop="10dp"/>
+<!--        <TextView-->
+<!--            android:id="@+id/forgot"-->
+<!--            style="@style/viewParent"-->
+<!--            android:text="Forgot Password?"-->
+<!--            android:textColor="@color/primaryTextColor"-->
+<!--            android:textSize="@dimen/newsMoreTextSize"-->
+<!--            android:layout_gravity="end"-->
+<!--            android:onClick="viewForgotPAssword"-->
+<!--            android:layout_marginTop="10dp"/>-->
 
         <TextView
             android:id="@+id/loginButton"
