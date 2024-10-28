@@ -53,7 +53,7 @@ public class RegisterActivity extends AppCompatActivity {
                     RegisterResponse registerResponse = response.body();
                     Toast.makeText(RegisterActivity.this, registerResponse.getMessage(), Toast.LENGTH_SHORT).show();
                     if (registerResponse.isSuccess()) {
-                        finish();  // Đóng trang đăng ký
+                        finish();
                     }
                 } else {
                     Toast.makeText(RegisterActivity.this, "Đăng ký thất bại!", Toast.LENGTH_SHORT).show();

@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.prm392_homebuddy_app.ViewModel.CheckoutViewModel;
+import com.example.prm392_homebuddy_app.model.LoginResponse;
 import com.example.prm392_homebuddy_app.ui.home.HomeFragment;
 import com.example.prm392_homebuddy_app.ui.order.OrderFragment;
 import com.example.prm392_homebuddy_app.utils.PreferenceUtils;
@@ -35,6 +37,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        if (PreferenceUtils.isLoggedIn(this) && !PreferenceUtils.isTokenExpired(this)) {
+            String role = PreferenceUtils.getUserRole(this);
+            Toast.makeText(MainActivity.this, role + " is logged in ", Toast.LENGTH_SHORT).show();
+        }
+        else if (!PreferenceUtils.isLoggedIn(this) && PreferenceUtils.isTokenExpired(this)) {
+            Intent loginIntent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(loginIntent);
+            finish();
+            return;
+        }
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.toolbar.getRoot());  // This still sets the custom Toolbar as ActionBar
