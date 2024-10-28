@@ -53,6 +53,11 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
 
+        String destination = getIntent().getStringExtra("navigateTo");
+        if ("cartFragment".equals(destination)) {
+            navController.navigate(R.id.navigation_cart);
+        }
+
         navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
             @Override
             public void onDestinationChanged(@NonNull NavController controller,
