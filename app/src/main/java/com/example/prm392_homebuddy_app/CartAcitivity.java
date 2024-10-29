@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -35,6 +36,7 @@ public class CartAcitivity extends AppCompatActivity {
     private List<Cart> cartItems;
     private CartAPI cartService;
     private ImageView back;
+    private Button btnCheckOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,7 @@ public class CartAcitivity extends AppCompatActivity {
         subtotalTextView = findViewById(R.id.subtotal);
         total = findViewById(R.id.total);
         back = findViewById(R.id.back);
+        btnCheckOut = findViewById(R.id.btnCheckOut);
 
         cartItems = new ArrayList<>();
         cartAdapter = new CartAdapter(this, cartItems);
@@ -64,6 +67,16 @@ public class CartAcitivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        //Lz Bao tu dien di m
+//        btnCheckOut.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(CartAcitivity.this, MainActivity.class);
+//                startActivity(intent);
+//                finish();
+//            }
+//        });
     }
 
     private void loadCartData(int userId){

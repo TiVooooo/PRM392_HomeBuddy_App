@@ -3,6 +3,7 @@ package com.example.prm392_homebuddy_app.model;
 import java.util.Date;
 
 public class Cart {
+    public int cartId;
     public int userId;
     public int serviceId;
     public int quantity;
@@ -12,7 +13,8 @@ public class Cart {
     private double servicePrice;
     private String serviceImage;
 
-    public Cart(int userId, int serviceId, int quantity, double price, Date createAt, String serviceName, double servicePrice, String serviceImage) {
+    public Cart(int cartId, int userId, int serviceId, int quantity, double price, Date createAt, String serviceName, double servicePrice, String serviceImage) {
+        this.cartId = cartId;
         this.userId = userId;
         this.serviceId = serviceId;
         this.quantity = quantity;
@@ -21,6 +23,14 @@ public class Cart {
         this.serviceName = serviceName;
         this.servicePrice = servicePrice;
         this.serviceImage = serviceImage;
+    }
+
+    public int getCartId() {
+        return cartId;
+    }
+
+    public void setCartId(int cartId) {
+        this.cartId = cartId;
     }
 
     public int getUserId() {
