@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.prm392_homebuddy_app.model.Service;
 
 import java.util.List;
@@ -37,8 +38,10 @@ public class ServiceAdapter extends ArrayAdapter<Service> {
 
         nameView.setText(item.getName());
         priceView.setText("$" + item.getPrice());
-        imageView.setImageResource(item.getImageUrl());
-
+        String imageUrl = item.getImage();
+        Glide.with(context)
+                .load(imageUrl)
+                .into(imageView);
         return convertView;
     }
 }
