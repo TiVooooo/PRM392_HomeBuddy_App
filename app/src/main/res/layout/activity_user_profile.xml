@@ -130,13 +130,25 @@
 
     <Button
         android:id="@+id/buttonEditProfile"
-        android:layout_width="200dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:text="Edit"
-        app:layout_constraintTop_toBottomOf="@+id/textViewCreatedAt"
+        app:layout_constraintBottom_toTopOf="@+id/nav_view"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCreatedAt"
+        app:layout_constraintVertical_bias="0.503" />
+
+    <Button
+        android:id="@+id/buttonSignOut"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Sign Out"
+        app:layout_constraintBottom_toTopOf="@+id/nav_view"
+        app:layout_constraintEnd_toStartOf="@+id/buttonEditProfile"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/nav_view"/>
+        app:layout_constraintTop_toBottomOf="@+id/textViewCreatedAt"
+        app:layout_constraintVertical_bias="0.503" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/nav_view"

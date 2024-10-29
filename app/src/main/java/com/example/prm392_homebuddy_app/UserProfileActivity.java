@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.example.prm392_homebuddy_app.API.UserRepository;
+import com.example.prm392_homebuddy_app.utils.PreferenceUtils;
 
 import java.util.Map;
 
@@ -20,7 +21,7 @@ public class UserProfileActivity extends AppCompatActivity {
     private TextView textViewName, textViewEmail, textViewPhone, textViewAddress, textViewRole, textViewCreatedAt;
     private ImageView imageViewAvatar;
     private UserRepository userRepository;
-    private Button btnEditProfile;
+    private Button btnEditProfile, btnSignOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,7 @@ public class UserProfileActivity extends AppCompatActivity {
         textViewRole = findViewById(R.id.textViewRole);
         textViewCreatedAt = findViewById(R.id.textViewCreatedAt);
         btnEditProfile = findViewById(R.id.buttonEditProfile);
+        btnSignOut = findViewById(R.id.buttonSignOut);
 
         btnEditProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -44,11 +46,11 @@ public class UserProfileActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        btnSignOut.setOnClickListener(view -> signOut());
         userRepository = new UserRepository();
 
-
-        fetchUserProfile(1); // ID người dùng mẫu, thay đổi khi cần
+        String userId = PreferenceUtils.getUserId(this);
+        fetchUserProfile(Integer.parseInt(userId)); // ID người dùng mẫu, thay đổi khi cần
     }
 
     private void fetchUserProfile(int userId) {
@@ -85,5 +87,16 @@ public class UserProfileActivity extends AppCompatActivity {
         } else {
             imageViewAvatar.setImageResource(R.drawable.ic_account);
         }
+    }
+    private void signOut() {
+        // Xóa token và trạng thái đăng nhập
+        PreferenceUtils.setLoggedIn(this, false);
+        PreferenceUtils.saveToken(this, null, 0,null,null);
+
+        // Chuyển hướng về màn hình Login
+        Intent loginIntent = new Intent(UserProfileActivity.this, LoginActivity.class);
+        loginIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(loginIntent);
+        finish();
     }
 }
