@@ -1,7 +1,10 @@
 package com.example.prm392_homebuddy_app;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,6 +34,7 @@ public class CartAcitivity extends AppCompatActivity {
     private CartAdapter cartAdapter;
     private List<Cart> cartItems;
     private CartAPI cartService;
+    private ImageView back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,7 @@ public class CartAcitivity extends AppCompatActivity {
         listViewCart = findViewById(R.id.listCart);
         subtotalTextView = findViewById(R.id.subtotal);
         total = findViewById(R.id.total);
+        back = findViewById(R.id.back);
 
         cartItems = new ArrayList<>();
         cartAdapter = new CartAdapter(this, cartItems);
@@ -50,6 +55,15 @@ public class CartAcitivity extends AppCompatActivity {
         //chua co login userid
         int userId = 1;
         loadCartData(userId);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CartAcitivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private void loadCartData(int userId){
