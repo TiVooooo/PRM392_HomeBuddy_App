@@ -22,6 +22,7 @@ public interface ServiceService {
     @POST(SERVICES)
     Call<Service> createService(@Body Service service);
 
+
     /*@PUT(TRAINEES + "/{id}")
     Call<Trainee> updateTrainees(@Path("id") Object id, @Body Trainee trainee);
 

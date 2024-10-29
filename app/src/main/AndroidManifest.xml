@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.PRM392_HomeBuddy_App"
+        android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
             android:name=".MainActivity"
@@ -27,9 +27,16 @@
             </intent-filter>
         </activity>
 
+        <activity android:name="LoginActivity"/>
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".RegisterHelperActivity" />
+
         <activity android:name=".UserProfileActivity" />
         <activity android:name=".EditUserActivity" />
         <activity android:name=".ServiceDetailActivity" />
+
+        <activity android:name=".CheckoutActivity" />
+
     </application>
     <uses-permission android:name="android.permission.INTERNET"/>
 
