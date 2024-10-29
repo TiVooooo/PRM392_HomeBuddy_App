@@ -27,17 +27,24 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="LoginActivity"/>
+        <activity android:name=".LoginActivity"/>
         <activity android:name=".RegisterActivity" />
         <activity android:name=".RegisterHelperActivity" />
 
-        <activity android:name=".UserProfileActivity" />
+        <activity android:name=".UserProfileActivity"/>
         <activity android:name=".EditUserActivity" />
         <activity android:name=".ServiceDetailActivity" />
 
         <activity android:name=".CheckoutActivity" />
 
+        <activity
+            android:name=".CartAcitivity"
+            android:exported="true"
+            android:theme="@style/Theme.PRM392_HomeBuddy_App">
+
+        </activity>
     </application>
+
     <uses-permission android:name="android.permission.INTERNET"/>
 
 </manifest>

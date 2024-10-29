@@ -8,4 +8,8 @@ public class ServiceRepository {
     public static BookingAPI getBookingAPI(){
         return APIClient.getClient().create(BookingAPI.class);
     }
+
+    public static CartAPI getCartAPI() {
+        return APIClient.getClient().create(CartAPI.class);
+    }
 }
