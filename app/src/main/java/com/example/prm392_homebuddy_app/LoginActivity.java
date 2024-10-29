@@ -58,6 +58,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         String token = data.getToken();
                         String role = data.getRole();
+                        int userId = data.getUserId();
                         String expirationString = data.getExpiration();
 
                         // Chuyển expiration từ UTC sang mili giây
@@ -74,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         // Lưu thông tin đăng nhập
                         PreferenceUtils.setLoggedIn(LoginActivity.this, true);
-                        PreferenceUtils.saveToken(LoginActivity.this, token, expirationTime, role);
+                        PreferenceUtils.saveToken(LoginActivity.this, token, expirationTime, role, String.valueOf(userId));
 
                         Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
                         Toast.makeText(LoginActivity.this, "Login success!", Toast.LENGTH_SHORT).show();

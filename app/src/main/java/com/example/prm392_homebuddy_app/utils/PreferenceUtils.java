@@ -9,6 +9,7 @@ public class PreferenceUtils {
     private static final String KEY_TOKEN = "token";
     private static final String KEY_EXPIRATION = "expiration";
     private static final String KEY_ROLE = "user_role";
+    private static final String KEY_USERID = "user_id";
 
     public static void setLoggedIn(Context context, boolean isLoggedIn) {
         SharedPreferences prefs = context.getSharedPreferences(PREFERENCES_FILE, Context.MODE_PRIVATE);
@@ -22,12 +23,13 @@ public class PreferenceUtils {
         return prefs.getBoolean(KEY_IS_LOGGED_IN, false);
     }
 
-    public static void saveToken(Context context, String token, long expiration, String role) {
+    public static void saveToken(Context context, String token, long expiration, String role, String userId) {
         SharedPreferences prefs = context.getSharedPreferences(PREFERENCES_FILE, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString(KEY_TOKEN, token);
         editor.putLong(KEY_EXPIRATION, expiration);
         editor.putString(KEY_ROLE, role);
+        editor.putString(KEY_USERID, userId);
         editor.apply();
     }
 
@@ -49,5 +51,9 @@ public class PreferenceUtils {
     public static String getUserRole(Context context) {
         SharedPreferences prefs = context.getSharedPreferences(PREFERENCES_FILE, Context.MODE_PRIVATE);
         return prefs.getString(KEY_ROLE, null);
+    }
+    public static String getUserId(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences(PREFERENCES_FILE, Context.MODE_PRIVATE);
+        return prefs.getString(KEY_USERID, null);
     }
 }
