@@ -1,17 +1,36 @@
 package com.example.prm392_homebuddy_app.model;
 
 public class Service {
+    public int id;
     public String name;
     public Double price;
-    public int ImageUrl;
+    public String image;
+
+    public int HelperId;
+
+    public int getHelperId() {
+        return HelperId;
+    }
+
+    public void setHelperId(int helperId) {
+        HelperId = helperId;
+    }
 
     public  String duration;
     public  String description;
-    public String HelperName;
-    public Service(String name, Double price, int imageUrl) {
+    public String helperName;
+    public Service(String name, Double price, String image) {
         this.name = name;
         this.price = price;
-        ImageUrl = imageUrl;
+        image = image;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -19,11 +38,11 @@ public class Service {
     }
 
     public String getHelperName() {
-        return HelperName;
+        return helperName;
     }
 
     public void setHelperName(String helperName) {
-        HelperName = helperName;
+        helperName = helperName;
     }
 
     public String getDescription() {
@@ -54,11 +73,11 @@ public class Service {
         this.price = price;
     }
 
-    public int getImageUrl() {
-        return ImageUrl;
+    public String getImage() {
+        return image;
     }
 
-    public void setImageUrl(int imageUrl) {
-        ImageUrl = imageUrl;
+    public void setImage(int image) {
+        image = image;
     }
 }

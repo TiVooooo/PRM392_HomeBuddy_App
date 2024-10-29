@@ -29,7 +29,7 @@
 
         <activity android:name=".UserProfileActivity" />
         <activity android:name=".EditUserActivity" />
-
+        <activity android:name=".ServiceDetailActivity" />
     </application>
     <uses-permission android:name="android.permission.INTERNET"/>
 
