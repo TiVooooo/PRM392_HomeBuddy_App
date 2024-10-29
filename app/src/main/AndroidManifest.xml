@@ -20,22 +20,28 @@
             android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/Theme.PRM392_HomeBuddy_App">
+        </activity>
+
+        <activity android:name=".LoginActivity"/>
+        <activity android:name=".RegisterActivity" />
+        <activity android:name=".RegisterHelperActivity" />
+
+        <activity android:name=".UserProfileActivity"/>
+        <activity android:name=".EditUserActivity" />
+        <activity android:name=".CheckoutActivity" />
+
+        <activity
+            android:name=".CartAcitivity"
+            android:exported="true"
+            android:theme="@style/Theme.PRM392_HomeBuddy_App">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name="LoginActivity"/>
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".RegisterHelperActivity" />
-
-        <activity android:name=".UserProfileActivity" />
-        <activity android:name=".EditUserActivity" />
-        <activity android:name=".CheckoutActivity" />
-
     </application>
+
     <uses-permission android:name="android.permission.INTERNET"/>
 
 </manifest>
