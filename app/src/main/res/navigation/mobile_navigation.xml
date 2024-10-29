@@ -31,4 +31,8 @@
         android:name="com.example.prm392_homebuddy_app.ui.home.HomeFragment"
         android:label=""
         tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/serviceDetailFragment"
+        android:name="com.example.prm392_homebuddy_app.ui.service_detail.ServiceDetailFragment"
+        android:label="" />
 </navigation>

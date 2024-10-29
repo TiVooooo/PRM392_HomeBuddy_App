@@ -33,6 +33,8 @@
 
         <activity android:name=".UserProfileActivity" />
         <activity android:name=".EditUserActivity" />
+        <activity android:name=".ServiceDetailActivity" />
+
         <activity android:name=".CheckoutActivity" />
 
     </application>
