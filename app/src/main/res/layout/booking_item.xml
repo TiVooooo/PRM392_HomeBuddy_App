@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="12dp"
+    android:background="?attr/selectableItemBackground"
+    android:layout_marginBottom="8dp">
+
+    <!-- Date Header -->
+    <TextView
+        android:id="@+id/textViewDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Today"
+        android:textColor="@android:color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+      />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp">
+
+        <!-- Icon for the house -->
+        <ImageView
+            android:id="@+id/imageViewHouse"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_home" />
+
+        <!-- Booking details container -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingStart="12dp">
+
+            <!-- Booking Time -->
+            <TextView
+                android:id="@+id/textViewBookingTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="11:00 AM - 1:00 PM"
+                android:textColor="@android:color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <!-- Service name or details -->
+            <TextView
+                android:id="@+id/textViewBookingDetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Service name"
+                android:textColor="@android:color/darker_gray"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <!-- Reschedule button -->
+        <Button
+            android:id="@+id/buttonReschedule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="View detail"
+            android:backgroundTint="@color/black"
+            android:textColor="@android:color/white" />
+    </LinearLayout>
+</LinearLayout>
