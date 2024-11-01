@@ -13,6 +13,8 @@ import com.example.prm392_homebuddy_app.R;
 import com.example.prm392_homebuddy_app.model.LoginRequest;
 import com.example.prm392_homebuddy_app.model.LoginResponse;
 import com.example.prm392_homebuddy_app.utils.PreferenceUtils;
+import com.google.firebase.messaging.FirebaseMessaging;
+
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -97,5 +99,22 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+/*
+FirebaseMessaging.getInstance().getToken()
+    .addOnCompleteListener(task -> {
+        if (!task.isSuccessful()) {
+            Log.w("FCM", "Fetching FCM registration token failed", task.getException());
+            return;
+        }
+
+        // Get new FCM registration token
+        String deviceToken = task.getResult();
+        Log.d("FCM", "Device Token: " + deviceToken);
+
+        // Lưu deviceToken vào đăng nhập hoặc bộ nhớ dùng tạm thời để gửi khi đăng nhập
+        // Bạn có thể lưu nó trong biến toàn cục hoặc PreferenceUtils chẳng hạn
+    });
+
+*/
 
 }

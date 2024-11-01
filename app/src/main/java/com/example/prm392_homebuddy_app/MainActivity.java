@@ -88,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
                     title.setText("Dashboard");
                 } else if (destination.getId() == R.id.navigation_cleanup) {
                     title.clearComposingText();
-
                     title.setText("Cleaning Supplies");
                 }else if(destination.getId() == R.id.navigation_account) {
                     title.clearComposingText();
