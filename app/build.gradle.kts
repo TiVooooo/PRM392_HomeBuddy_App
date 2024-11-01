@@ -1,7 +1,5 @@
 plugins {
     alias(libs.plugins.android.application)
-    id("com.google.gms.google-services")
-
 }
 
 android {
@@ -34,8 +32,6 @@ android {
     buildFeatures {
         viewBinding = true
     }
-
-
 }
 
 dependencies {
@@ -52,9 +48,6 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.4.0")
 
 
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("androidx.cardview:cardview:1.0.0")
-    implementation("com.google.android.material:material:1.10.0")
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
@@ -62,7 +55,7 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
 
-    implementation("com.github.bumptech.glide:glide:4.16.0")
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
 
 
