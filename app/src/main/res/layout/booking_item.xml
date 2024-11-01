@@ -10,7 +10,7 @@
 
     <!-- Date Header -->
     <TextView
-        android:id="@+id/textViewDate"
+        android:id="@+id/textViewServiceDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Today"
@@ -41,7 +41,7 @@
 
             <!-- Booking Time -->
             <TextView
-                android:id="@+id/textViewBookingTime"
+                android:id="@+id/textViewServiceTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="11:00 AM - 1:00 PM"
@@ -51,7 +51,7 @@
 
             <!-- Service name or details -->
             <TextView
-                android:id="@+id/textViewBookingDetails"
+                android:id="@+id/textViewServiceName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Service name"
@@ -61,7 +61,7 @@
 
         <!-- Reschedule button -->
         <Button
-            android:id="@+id/buttonReschedule"
+            android:id="@+id/btnDetail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="View detail"
