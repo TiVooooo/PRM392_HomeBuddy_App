@@ -5,6 +5,7 @@
     <string name="login_password_hint">Password</string>
     <string name="signup_login_hint">Already have an account? Sign In</string>
     <string name="login_signup_hint">Don\'t have an account? Sign Up</string>
+    <string name="my_app_api_key">AIzaSyA3QiyFKm3se2GDJPQwMk3BP3qdT545Tq4</string>
     <string-array name="gender_options">
         <item>Male</item>
         <item>Female</item>
