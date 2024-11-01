@@ -46,6 +46,11 @@
             android:exported="true"
             android:theme="@style/Theme.PRM392_HomeBuddy_App">
         </activity>
+        <activity
+            android:name=".FinalBookingActivity"
+            android:exported="true"
+            android:theme="@style/Theme.PRM392_HomeBuddy_App">
+        </activity>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/my_app_api_key" />
