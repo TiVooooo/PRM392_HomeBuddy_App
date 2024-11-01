@@ -1,16 +1,18 @@
 package com.example.prm392_homebuddy_app.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Booking {
+public class CreateBookingRequest implements Serializable {
     public Double price;
     public Date bookingDate;
     public String  serviceDate;
     public String address;
     public String phone;
     public String note;
+    public String serviceName;
 
-    public Booking(Double price, String  serviceDate, String address, String phone, String note) {
+    public CreateBookingRequest(Double price, String  serviceDate, String address, String phone, String note) {
         this.price = price;
         this.serviceDate = serviceDate;
         this.address = address;
@@ -64,5 +66,13 @@ public class Booking {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public String getServiceName() {
+        return serviceName;
+    }
+
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
     }
 }

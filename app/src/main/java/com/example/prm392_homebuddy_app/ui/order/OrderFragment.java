@@ -9,7 +9,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,7 +24,8 @@ import com.example.prm392_homebuddy_app.API.BookingAPI;
 import com.example.prm392_homebuddy_app.API.ServiceRepository;
 import com.example.prm392_homebuddy_app.MainActivity;
 import com.example.prm392_homebuddy_app.R;
-import com.example.prm392_homebuddy_app.model.Booking;
+import com.example.prm392_homebuddy_app.model.BookingResponse;
+import com.example.prm392_homebuddy_app.model.CreateBookingRequest;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -131,11 +131,11 @@ public class OrderFragment extends Fragment {
             return;
         }
         String formattedServiceDate = outputDateFormat.format(serviceDate);
-        Booking booking = new Booking(price, formattedServiceDate, address, phone, note);
-        Call<Booking> call = bookingAPI.checkOut(booking);
-        call.enqueue(new Callback<Booking>() {
+        CreateBookingRequest createBookingRequest = new CreateBookingRequest(price, formattedServiceDate, address, phone, note);
+        Call<BookingResponse> call = bookingAPI.checkOut(createBookingRequest);
+        call.enqueue(new Callback<BookingResponse>() {
             @Override
-            public void onResponse(Call<Booking> call, Response<Booking> response) {
+            public void onResponse(Call<BookingResponse> call, Response<BookingResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     Log.d("CheckoutActivity", "Checkout successful: " + response.body().toString());
                 } else {
@@ -144,7 +144,7 @@ public class OrderFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<Booking> call, Throwable t) {
+            public void onFailure(Call<BookingResponse> call, Throwable t) {
                 Log.e("CheckoutActivity", "Failure: " + t.getMessage());
             }
         });
