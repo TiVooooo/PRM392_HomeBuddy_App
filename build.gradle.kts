@@ -2,10 +2,3 @@
 plugins {
     alias(libs.plugins.android.application) apply false
 }
-
-buildscript {
-    dependencies {
-        // Thêm Firebase plugin
-        classpath("com.google.gms:google-services:4.3.10")
-    }
-}
