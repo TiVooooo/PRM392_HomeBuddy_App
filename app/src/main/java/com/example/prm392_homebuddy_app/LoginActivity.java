@@ -13,7 +13,6 @@ import com.example.prm392_homebuddy_app.R;
 import com.example.prm392_homebuddy_app.model.LoginRequest;
 import com.example.prm392_homebuddy_app.model.LoginResponse;
 import com.example.prm392_homebuddy_app.utils.PreferenceUtils;
-import com.google.firebase.messaging.FirebaseMessaging;
 
 
 import java.text.ParseException;
