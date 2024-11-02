@@ -2,6 +2,7 @@ package com.example.prm392_homebuddy_app;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -46,7 +47,16 @@ public class LoginActivity extends AppCompatActivity {
         String email = editTextEmail.getText().toString();
         String password = editTextPassword.getText().toString();
         String deviceToken = "";
-
+        if(TextUtils.isEmpty(email)){
+            editTextEmail.setError("Please enter your email");
+            editTextEmail.requestFocus();
+            return;
+        }
+        if(TextUtils.isEmpty(password)){
+            editTextPassword.setError("Please enter your email");
+            editTextPassword.requestFocus();
+            return;
+        }
         LoginRequest request = new LoginRequest(email,password,deviceToken);
         LoginService.getLoginAPI().login(request).enqueue(new Callback<LoginResponse>() {
             @Override
