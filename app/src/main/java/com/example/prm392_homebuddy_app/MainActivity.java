@@ -96,9 +96,11 @@ public class MainActivity extends AppCompatActivity {
                 }else if(destination.getId() == R.id.navigation_account) {
                     title.clearComposingText();
                     title.setText("Profile");
-                    Intent intent = new Intent(MainActivity.this, UserProfileActivity.class);
-                    startActivity(intent);
-                } else {
+                }else if(destination.getId() == R.id.navigation_chat){
+                    title.clearComposingText();
+                    title.setText("Chat");
+                }
+                else {
                     title.setText("Title");
                 }
             }
