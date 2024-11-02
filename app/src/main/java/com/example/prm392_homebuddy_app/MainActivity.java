@@ -57,7 +57,16 @@ public class MainActivity extends AppCompatActivity {
         }
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        setSupportActionBar(binding.toolbar.getRoot());  // This still sets the custom Toolbar as ActionBar
+        setSupportActionBar(binding.toolbar.getRoot());
+
+        Button btnToChatPage = findViewById(R.id.button_open_chat);
+        btnToChatPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ChatActivity.class);
+                startActivity(intent);
+            }
+        });
 
         checkoutViewModel = new ViewModelProvider(this).get(CheckoutViewModel.class);
 

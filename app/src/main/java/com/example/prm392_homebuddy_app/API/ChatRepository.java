@@ -2,7 +2,7 @@ package com.example.prm392_homebuddy_app.API;
 
 import android.util.Log;
 
-import com.example.prm392_homebuddy_app.model.Chat;
+import com.example.prm392_homebuddy_app.model.ChatResponse;
 
 import java.util.List;
 
@@ -16,29 +16,32 @@ public class ChatRepository {
     public ChatRepository() {
         chatApi = APIClient.getClient().create(ChatApi.class);
     }
-    public void getUserChats(int userId, ChatDataCallback callback) {
-        Call<List<Chat>> call = chatApi.getUserChats(userId);
 
-        call.enqueue(new Callback<List<Chat>>() {
+    public void getUserChats(int userId, ChatDataCallback callback) {
+        Call<List<ChatResponse>> call = chatApi.getUserChats(userId);
+
+        call.enqueue(new Callback<List<ChatResponse>>() {
             @Override
-            public void onResponse(Call<List<Chat>> call, Response<List<Chat>> response) {
+            public void onResponse(Call<List<ChatResponse>> call, Response<List<ChatResponse>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     callback.onSuccess(response.body());
                 } else {
-                    callback.onFailure("Failed to fetch chats: " + response.message());
+                    Log.e("ChatRepository", "Response failed: " + response.message() + ", Code: " + response.code());
+                    callback.onFailure("Failed to fetch chats: " + response.message() + ", Code: " + response.code());
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Chat>> call, Throwable t) {
+            public void onFailure(Call<List<ChatResponse>> call, Throwable t) {
+                Log.e("ChatRepository", "Error occurred: " + t.getMessage());
                 callback.onFailure("Error: " + t.getMessage());
             }
         });
     }
 
-    // Interface callback để xử lý phản hồi
     public interface ChatDataCallback {
-        void onSuccess(List<Chat> chatList);
+        void onSuccess(List<ChatResponse> chatList);
         void onFailure(String errorMessage);
     }
 }
+

@@ -1,14 +1,15 @@
 package com.example.prm392_homebuddy_app.API;
 
-import com.example.prm392_homebuddy_app.model.Chat;
+import com.example.prm392_homebuddy_app.model.ChatResponse;
 
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ChatApi {
-    @GET("api/Chat/userid/{userId}")
-    Call<List<Chat>> getUserChats(@Path("userId") int userId);
+    @GET("Chat/userid")
+    Call<List<ChatResponse>> getUserChats(@Query("userid") int userId);
 }
+

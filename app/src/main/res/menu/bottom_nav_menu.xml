@@ -11,10 +11,6 @@
         android:id="@+id/navigation_cart"
         android:icon="@drawable/ic_cart"
         android:title="Cart" />
-<!--    <item-->
-<!--        android:id="@+id/navigation_chat"-->
-<!--        android:icon="@drawable/ic_chat"-->
-<!--        android:title="Chat" />-->
     <item
         android:id="@+id/navigation_order"
         android:icon="@drawable/ic_order"

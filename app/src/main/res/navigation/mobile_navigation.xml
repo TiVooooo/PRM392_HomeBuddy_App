@@ -25,7 +25,7 @@
         android:id="@+id/navigation_chat"
         android:label=""
         android:name="com.example.prm392_homebuddy_app.ui.chat.ChatFragment"
-        tools:layout="@layout/fragment_chat" />
+        tools:layout="@layout/activity_chat" />
 
     <fragment
         android:id="@+id/navigation_order"
