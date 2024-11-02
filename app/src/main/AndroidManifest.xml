@@ -36,6 +36,7 @@
         <activity android:name=".RegisterHelperActivity" />
 
         <activity android:name=".ChatActivity"/>
+        <activity android:name=".MessageActivity" />
         <activity android:name=".EditUserActivity" />
         <activity android:name=".ServiceDetailActivity" />
 

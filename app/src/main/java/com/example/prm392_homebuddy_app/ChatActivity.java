@@ -38,7 +38,7 @@ public class ChatActivity extends AppCompatActivity {
 
         // Initialize the ChatRepository
         chatRepository = new ChatRepository();
-        loadChats(5);
+        loadChats(5); // Replace with actual user ID as needed
 
         // Initialize the back button
         Button buttonBack = findViewById(R.id.buttonBack);
@@ -54,14 +54,17 @@ public class ChatActivity extends AppCompatActivity {
 
         listViewChats.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                ChatResponse selectedChat = chatList.get(position);
+                Intent intent = new Intent(ChatActivity.this, MessageActivity.class);
+                intent.putExtra("chatId", selectedChat.getId());
+                startActivity(intent);
             }
         });
     }
 
     private void loadChats(int userId) {
-        chatRepository.getUserChats(userId, new ChatRepository.ChatDataCallback() {
+        chatRepository.getUserChats(userId, new ChatRepository.ChatDataCallback<List<ChatResponse>>() {
             @Override
             public void onSuccess(List<ChatResponse> chats) {
                 Log.d("ChatActivity", "Fetched chats: " + chats);
