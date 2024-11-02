@@ -68,15 +68,14 @@ public class CartAcitivity extends AppCompatActivity {
             }
         });
 
-        //Lz Bao tu dien di m
-//        btnCheckOut.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(CartAcitivity.this, MainActivity.class);
-//                startActivity(intent);
-//                finish();
-//            }
-//        });
+        btnCheckOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CartAcitivity.this, CheckoutActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
     private void loadCartData(int userId){

@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.example.prm392_homebuddy_app.API.BookingAPI;
 import com.example.prm392_homebuddy_app.API.ServiceRepository;
+import com.example.prm392_homebuddy_app.FinalBookingActivity;
 import com.example.prm392_homebuddy_app.MainActivity;
 import com.example.prm392_homebuddy_app.R;
 import com.example.prm392_homebuddy_app.model.Booking;
@@ -44,6 +45,7 @@ public class OrderFragment extends Fragment {
     private Button btnPay;
     private OrderViewModel mViewModel;
     private BookingAPI bookingAPI;
+    private String serviceName;
 
     public static OrderFragment newInstance() {
         return new OrderFragment();
@@ -84,6 +86,16 @@ public class OrderFragment extends Fragment {
                 navigateBack();
             }
         });
+
+        Bundle args = getArguments();
+        if (args != null) {
+            serviceName = args.getString("serviceName");
+            double price = args.getDouble("price");
+
+            // Set data in views
+            tvTotalPrice.setText(String.format("$%.2f", price));
+            // Additional UI updates if needed
+        }
 
         return view;
     }
@@ -131,23 +143,23 @@ public class OrderFragment extends Fragment {
             return;
         }
         String formattedServiceDate = outputDateFormat.format(serviceDate);
-        Booking booking = new Booking(price, formattedServiceDate, address, phone, note);
-        Call<Booking> call = bookingAPI.checkOut(booking);
-        call.enqueue(new Callback<Booking>() {
-            @Override
-            public void onResponse(Call<Booking> call, Response<Booking> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    Log.d("CheckoutActivity", "Checkout successful: " + response.body().toString());
-                } else {
-                    Log.e("CheckoutActivity", "Error: " + response.code() + " " + response.message());
-                }
-            }
 
-            @Override
-            public void onFailure(Call<Booking> call, Throwable t) {
-                Log.e("CheckoutActivity", "Failure: " + t.getMessage());
-            }
+        double finalPrice = price;
+        btnPay.setOnClickListener(v -> {
+            Intent intent = new Intent(requireActivity(), FinalBookingActivity.class);
+
+            // Add all required data
+            intent.putExtra("serviceName", serviceName);
+            intent.putExtra("price", finalPrice);
+            intent.putExtra("name", name);
+            intent.putExtra("phone", phone);
+            intent.putExtra("address", address);
+            intent.putExtra("serviceDate", formattedServiceDate);
+            intent.putExtra("note", note);
+
+            startActivity(intent);
         });
+
     }
 
     private void navigateBack() {
