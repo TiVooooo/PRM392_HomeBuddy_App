@@ -3,7 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET"/>
-
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <application
         android:networkSecurityConfig="@xml/network_security_config"
 
@@ -36,15 +41,19 @@
         <activity android:name=".ServiceDetailActivity" />
 
         <activity android:name=".CheckoutActivity" />
+        <activity android:name=".MapsActivity" />
+        <activity android:name=".ListBookingActivity" />
+        <activity android:name=".BookingDetailActivity" />
+        <activity android:name=".UserBookingDetailActivity" />
 
         <activity
             android:name=".CartAcitivity"
             android:exported="true"
             android:theme="@style/Theme.PRM392_HomeBuddy_App">
-
         </activity>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/my_app_api_key" />
     </application>
-
-    <uses-permission android:name="android.permission.INTERNET"/>
 
 </manifest>
