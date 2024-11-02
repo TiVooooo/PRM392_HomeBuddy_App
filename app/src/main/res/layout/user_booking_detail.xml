@@ -50,6 +50,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/tvServiceDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Jan 12, 2023"
@@ -86,6 +87,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/tvServiceTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="2:00 PM - 4:00 PM"
@@ -121,6 +123,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/tvServiceName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="3 bed, 2 bath house"
@@ -156,6 +159,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/tvAddress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="5500 3rd St, San Francisco"
@@ -181,7 +185,7 @@
             android:gravity="center_vertical">
 
             <ImageView
-                android:id="@+id/imageViewCleaner"
+                android:id="@+id/imgHelperAvt"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:src="@drawable/cat"
@@ -194,7 +198,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/textViewCleanerName"
+                    android:id="@+id/tvHelperName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Kaitlyn"
@@ -203,7 +207,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/textViewCleanerRating"
+                    android:id="@+id/tvHelperRating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="5.0 rating"
@@ -213,7 +217,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/buttonViewInMaps"
+            android:id="@+id/btnBilling"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
