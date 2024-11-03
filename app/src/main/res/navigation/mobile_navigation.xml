@@ -18,9 +18,15 @@
     <fragment
         android:id="@+id/navigation_cleanup"
         android:label=""
-
         android:name="com.example.prm392_homebuddy_app.ui.service.CleanUpFragment"
         tools:layout="@layout/fragment_clean_up" />
+
+    <fragment
+        android:id="@+id/navigation_chat"
+        android:label=""
+        android:name="com.example.prm392_homebuddy_app.ui.chat.ChatFragment"
+        tools:layout="@layout/activity_chat" />
+
     <fragment
         android:id="@+id/navigation_order"
         android:name="com.example.prm392_homebuddy_app.ui.order.OrderFragment"

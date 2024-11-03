@@ -56,7 +56,16 @@ public class MainActivity extends AppCompatActivity {
             return;
         }       binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        setSupportActionBar(binding.toolbar.getRoot());  // This still sets the custom Toolbar as ActionBar
+        setSupportActionBar(binding.toolbar.getRoot());
+
+        Button btnToChatPage = findViewById(R.id.button_open_chat);
+        btnToChatPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, ChatActivity.class);
+                startActivity(intent);
+            }
+        });
 
         checkoutViewModel = new ViewModelProvider(this).get(CheckoutViewModel.class);
 
@@ -95,9 +104,11 @@ public class MainActivity extends AppCompatActivity {
                 }else if(destination.getId() == R.id.navigation_account) {
                     title.clearComposingText();
                     title.setText("Profile");
-                    Intent intent = new Intent(MainActivity.this, UserProfileActivity.class);
-                    startActivity(intent);
-                } else {
+                }else if(destination.getId() == R.id.navigation_chat){
+                    title.clearComposingText();
+                    title.setText("Chat");
+                }
+                else {
                     title.setText("Title");
                 }
             }
