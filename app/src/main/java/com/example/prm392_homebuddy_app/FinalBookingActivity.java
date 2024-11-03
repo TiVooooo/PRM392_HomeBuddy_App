@@ -20,7 +20,7 @@ import com.example.prm392_homebuddy_app.API.BookingAPI;
 import com.example.prm392_homebuddy_app.API.ServiceRepository;
 import com.example.prm392_homebuddy_app.API.ServiceService;
 import com.example.prm392_homebuddy_app.adapters.ServiceSliderAdapter;
-import com.example.prm392_homebuddy_app.model.Booking;
+import com.example.prm392_homebuddy_app.model.BookingResponse;
 import com.example.prm392_homebuddy_app.model.ServiceRelatives;
 
 import java.util.List;
@@ -83,28 +83,7 @@ public class FinalBookingActivity extends AppCompatActivity {
         priceTextView.setText(String.format("$%.2f", price));
         addressTextView.setText(address);
 
-        btnCheckOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Booking booking = new Booking(price, serviceDate, address, phone, note);
-                Call<Booking> call = bookingAPI.checkOut(booking);
-                    call.enqueue(new Callback<Booking>() {
-                        @Override
-                        public void onResponse(Call<Booking> call, Response<Booking> response) {
-                            if (response.isSuccessful() && response.body() != null) {
-                                Log.d("CheckoutActivity", "Checkout successful: " + response.body().toString());
-                            } else {
-                                Log.e("CheckoutActivity", "Error: " + response.code() + " " + response.message());
-                            }
-                        }
 
-                        @Override
-                        public void onFailure(Call<Booking> call, Throwable t) {
-                            Log.e("CheckoutActivity", "Failure: " + t.getMessage());
-                        }
-                    });
-            }
-        });
         //loadRelatedServices(serviceId);
     }
 /*

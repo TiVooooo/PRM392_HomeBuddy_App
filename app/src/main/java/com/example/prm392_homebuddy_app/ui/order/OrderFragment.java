@@ -9,7 +9,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,10 +22,10 @@ import android.widget.TextView;
 
 import com.example.prm392_homebuddy_app.API.BookingAPI;
 import com.example.prm392_homebuddy_app.API.ServiceRepository;
-import com.example.prm392_homebuddy_app.FinalBookingActivity;
 import com.example.prm392_homebuddy_app.MainActivity;
 import com.example.prm392_homebuddy_app.R;
-import com.example.prm392_homebuddy_app.model.Booking;
+import com.example.prm392_homebuddy_app.model.BookingResponse;
+import com.example.prm392_homebuddy_app.model.CreateBookingRequest;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -45,7 +44,6 @@ public class OrderFragment extends Fragment {
     private Button btnPay;
     private OrderViewModel mViewModel;
     private BookingAPI bookingAPI;
-    private String serviceName;
 
     public static OrderFragment newInstance() {
         return new OrderFragment();
@@ -86,16 +84,6 @@ public class OrderFragment extends Fragment {
                 navigateBack();
             }
         });
-
-        Bundle args = getArguments();
-        if (args != null) {
-            serviceName = args.getString("serviceName");
-            double price = args.getDouble("price");
-
-            // Set data in views
-            tvTotalPrice.setText(String.format("$%.2f", price));
-            // Additional UI updates if needed
-        }
 
         return view;
     }
@@ -143,23 +131,23 @@ public class OrderFragment extends Fragment {
             return;
         }
         String formattedServiceDate = outputDateFormat.format(serviceDate);
+        CreateBookingRequest createBookingRequest = new CreateBookingRequest(price, formattedServiceDate, address, phone, note);
+        Call<BookingResponse> call = bookingAPI.checkOut(createBookingRequest);
+        call.enqueue(new Callback<BookingResponse>() {
+            @Override
+            public void onResponse(Call<BookingResponse> call, Response<BookingResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Log.d("CheckoutActivity", "Checkout successful: " + response.body().toString());
+                } else {
+                    Log.e("CheckoutActivity", "Error: " + response.code() + " " + response.message());
+                }
+            }
 
-        double finalPrice = price;
-        btnPay.setOnClickListener(v -> {
-            Intent intent = new Intent(requireActivity(), FinalBookingActivity.class);
-
-            // Add all required data
-            intent.putExtra("serviceName", serviceName);
-            intent.putExtra("price", finalPrice);
-            intent.putExtra("name", name);
-            intent.putExtra("phone", phone);
-            intent.putExtra("address", address);
-            intent.putExtra("serviceDate", formattedServiceDate);
-            intent.putExtra("note", note);
-
-            startActivity(intent);
+            @Override
+            public void onFailure(Call<BookingResponse> call, Throwable t) {
+                Log.e("CheckoutActivity", "Failure: " + t.getMessage());
+            }
         });
-
     }
 
     private void navigateBack() {
