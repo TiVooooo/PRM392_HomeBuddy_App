@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.prm392_homebuddy_app.API.CartAPI;
 import com.example.prm392_homebuddy_app.API.ServiceRepository;
+import com.example.prm392_homebuddy_app.CartAcitivity;
 import com.example.prm392_homebuddy_app.CheckoutActivity;
 import com.example.prm392_homebuddy_app.MainActivity;
 import com.example.prm392_homebuddy_app.OrderActivity;
@@ -43,12 +44,11 @@ public class CartFragment extends Fragment {
     private CheckoutViewModel checkoutViewModel;
 
     private ListView listViewCart;
-    private TextView subtotalTextView;
-    private TextView total;
     private CartAdapter cartAdapter;
     private List<Cart> cartItems;
     private CartAPI cartService;
-    private Button btnCheckOut;
+
+    private Button btnPurchase;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,12 +62,10 @@ public class CartFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_cart, container, false);
+        View view = inflater.inflate(R.layout.fragment_cart, container, false);
 
         listViewCart = view.findViewById(R.id.listCart);
-        subtotalTextView = view.findViewById(R.id.subtotal);
-        total = view.findViewById(R.id.total);
-        btnCheckOut = view.findViewById(R.id.btnCheckOut);
+        btnPurchase = view.findViewById(R.id.buttonPurchase);
 
         cartAdapter = new CartAdapter(requireContext(), cartItems);
         listViewCart.setAdapter(cartAdapter);
@@ -75,22 +73,12 @@ public class CartFragment extends Fragment {
         int userId = 1; // Assuming userId
         loadCartData(userId);
 
-        btnCheckOut.setOnClickListener(v -> {
-            Intent intent = new Intent(requireActivity(), CheckoutActivity.class);
-            startActivity(intent);
-            requireActivity().finish();
-        });
-
-        listViewCart.setOnItemClickListener((parent, view1, position, id) -> {
-            Cart selectedCartItem = cartItems.get(position);
-
-            // Create a bundle with the data
-            Bundle bundle = new Bundle();
-            bundle.putString("serviceName", selectedCartItem.getServiceName());
-            bundle.putDouble("price", selectedCartItem.getPrice());
-
-            // Navigate to OrderFragment
-            Navigation.findNavController(requireActivity(), R.id.nav_host_fragment_activity_main).navigate(R.id.action_cartFragment_to_orderFragment, bundle);
+        btnPurchase.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(requireContext(), CartAcitivity.class);
+                startActivity(intent);
+            }
         });
         return view;
     }
@@ -108,9 +96,6 @@ public class CartFragment extends Fragment {
                         cartItems.clear();
                         cartItems.addAll(cartResponse.getCartItems());
                         cartAdapter.notifyDataSetChanged();
-
-                        subtotalTextView.setText("$" + cartResponse.getSubtotal());
-                        total.setText("$" + cartResponse.getSubtotal());
                     }
                 }
 

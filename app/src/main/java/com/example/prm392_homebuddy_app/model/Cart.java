@@ -1,8 +1,9 @@
 package com.example.prm392_homebuddy_app.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Cart {
+public class Cart implements Serializable {
     public int cartId;
     public int userId;
     public int serviceId;

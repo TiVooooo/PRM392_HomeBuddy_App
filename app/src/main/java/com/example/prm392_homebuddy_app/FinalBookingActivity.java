@@ -1,5 +1,6 @@
 package com.example.prm392_homebuddy_app;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,17 +11,20 @@ import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.bumptech.glide.Glide;
 import com.example.prm392_homebuddy_app.API.BookingAPI;
 import com.example.prm392_homebuddy_app.API.ServiceRepository;
 import com.example.prm392_homebuddy_app.API.ServiceService;
 import com.example.prm392_homebuddy_app.adapters.ServiceSliderAdapter;
 import com.example.prm392_homebuddy_app.model.BookingResponse;
+import com.example.prm392_homebuddy_app.model.Cart;
 import com.example.prm392_homebuddy_app.model.ServiceRelatives;
 
 import java.util.List;
@@ -67,24 +71,58 @@ public class FinalBookingActivity extends AppCompatActivity {
         serviceService = ServiceRepository.getServiceService();
         btnCheckOut = findViewById(R.id.btnOrder);
 
-        String serviceName = getIntent().getStringExtra("serviceName");
-        double price = getIntent().getDoubleExtra("price", 0.0);
-        String name = getIntent().getStringExtra("name");
-        String phone = getIntent().getStringExtra("phone");
-        String address = getIntent().getStringExtra("address");
-        String serviceDate = getIntent().getStringExtra("serviceDate");
-        String note = getIntent().getStringExtra("note");
+        Intent intent = getIntent();
+        Cart selectedCartItem = (Cart) intent.getSerializableExtra("selectedItem");
+        String name = intent.getStringExtra("name");
+        String phone = intent.getStringExtra("phone");
+        String finalAddress = intent.getStringExtra("address");
+        String serviceDate = intent.getStringExtra("serviceDate");
+        String note = intent.getStringExtra("note");
+
+        String address = "";
+        if (finalAddress != null) {
+            String[] addressParts = finalAddress.split(",");
+            if (addressParts.length > 0) {
+                address = addressParts[0];
+            }
+        }
 
         TextView serviceNameTextView = findViewById(R.id.serviceName);
-        TextView priceTextView = findViewById(R.id.total);
+        TextView totalTextView = findViewById(R.id.total);
         TextView addressTextView = findViewById(R.id.address);
+        TextView fullAddressTextView = findViewById(R.id.fullAddress);
 
-        serviceNameTextView.setText(serviceName);
-        priceTextView.setText(String.format("$%.2f", price));
         addressTextView.setText(address);
 
+        if (finalAddress != null) {
+            int maxLength = 300;
+            if (finalAddress.length() > maxLength) {
+                finalAddress = finalAddress.substring(0, maxLength - 3) + "...";
+            }
+            fullAddressTextView.setText(finalAddress);
+        }
+
+        serviceNameTextView.setText(selectedCartItem.getServiceName());
+        totalTextView.setText(String.format("$%.2f", selectedCartItem.getServicePrice()));
+
+        ImageView imageCart = findViewById(R.id.imageCart);
+        TextView titleTextView = findViewById(R.id.title);
+        TextView priceTextView = findViewById(R.id.price);
+
+        if (selectedCartItem != null) {
+            titleTextView.setText(selectedCartItem.getServiceName());
+            priceTextView.setText("$" + selectedCartItem.getServicePrice());
+
+            loadImage(selectedCartItem.getServiceImage(), imageCart);
+        }
 
         //loadRelatedServices(serviceId);
+    }
+
+    private void loadImage(String imageUrl, ImageView imageView) {
+        Glide.with(this)
+                .load(imageUrl)
+                .into(imageView);
     }
 /*
     private void loadRelatedServices(int serviceId) {
