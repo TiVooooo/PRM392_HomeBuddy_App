@@ -54,8 +54,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(loginIntent);
             finish();
             return;
-        }
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
+        }       binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.toolbar.getRoot());
 

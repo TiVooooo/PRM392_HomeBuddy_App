@@ -2,6 +2,7 @@ package com.example.prm392_homebuddy_app;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -43,7 +44,31 @@ public class RegisterActivity extends AppCompatActivity {
         String phone = editTextPhone.getText().toString();
         String address = editTextAddress.getText().toString();
         boolean gender = genderSpinner.getSelectedItem().toString().equals("Male");
-
+        if(TextUtils.isEmpty(email)){
+            editTextEmail.setError("Please enter your email");
+            editTextEmail.requestFocus();
+            return;
+        }
+        if(TextUtils.isEmpty(password)){
+            editTextPassword.setError("Please enter your password");
+            editTextPassword.requestFocus();
+            return;
+        }
+        if(TextUtils.isEmpty(name)){
+            editTextName.setError("Please enter your name");
+            editTextName.requestFocus();
+            return;
+        }
+        if(TextUtils.isEmpty(phone)){
+            editTextPhone.setError("Please enter your phone");
+            editTextPhone.requestFocus();
+            return;
+        }
+        if(TextUtils.isEmpty(address)){
+            editTextAddress.setError("Please enter your address");
+            editTextAddress.requestFocus();
+            return;
+        }
         RegisterRequest request = new RegisterRequest(email, password, name, phone, gender, address);
 
         RegisterService.getRegisterAPI().register(request).enqueue(new Callback<RegisterResponse>() {
@@ -56,7 +81,7 @@ public class RegisterActivity extends AppCompatActivity {
                         finish();
                     }
                 } else {
-                    Toast.makeText(RegisterActivity.this, "Đăng ký thất bại!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "Sign out fail!", Toast.LENGTH_SHORT).show();
                 }
             }
 

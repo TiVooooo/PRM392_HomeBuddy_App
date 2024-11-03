@@ -2,6 +2,7 @@ package com.example.prm392_homebuddy_app;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -45,7 +46,36 @@ public class RegisterHelperActivity extends AppCompatActivity {
         String address = editTextAddress.getText().toString();
         String skill = editTextSkill.getText().toString();
         boolean gender = genderSpinner.getSelectedItem().toString().equals("Male");
-
+        if(TextUtils.isEmpty(email)){
+            editTextEmail.setError("Please enter your email");
+            editTextEmail.requestFocus();
+            return;
+        }
+        if(TextUtils.isEmpty(password)){
+            editTextPassword.setError("Please enter your password");
+            editTextPassword.requestFocus();
+            return;
+        }
+        if(TextUtils.isEmpty(name)){
+            editTextName.setError("Please enter your name");
+            editTextName.requestFocus();
+            return;
+        }
+        if(TextUtils.isEmpty(phone)){
+            editTextPhone.setError("Please enter your phone");
+            editTextPhone.requestFocus();
+            return;
+        }
+        if(TextUtils.isEmpty(address)){
+            editTextAddress.setError("Please enter your address");
+            editTextAddress.requestFocus();
+            return;
+        }
+        if(TextUtils.isEmpty(skill)){
+            editTextSkill.setError("Please describe a little bit about your skill");
+            editTextSkill.requestFocus();
+            return;
+        }
         RegisterHelperRequest request = new RegisterHelperRequest(email, password, name, phone, gender, address, skill);
 
         RegisterService.getRegisterAPI().registerHelper(request).enqueue(new Callback<RegisterResponse>() {
@@ -58,7 +88,7 @@ public class RegisterHelperActivity extends AppCompatActivity {
                         finish();  // Đóng trang đăng ký
                     }
                 } else {
-                    Toast.makeText(RegisterHelperActivity.this, "Đăng ký thất bại!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterHelperActivity.this, "Sign out fail!", Toast.LENGTH_SHORT).show();
                 }
             }
 
