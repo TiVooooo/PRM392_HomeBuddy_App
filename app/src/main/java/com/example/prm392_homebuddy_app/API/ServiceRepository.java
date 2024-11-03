@@ -13,4 +13,8 @@ public class ServiceRepository {
         return APIClient.getClient().create(CartAPI.class);
     }
 
+    public static HelperAPI getHelperAPI() {
+        return APIClient.getClient().create(HelperAPI.class);
+    }
+
 }
