@@ -1,6 +1,9 @@
 package com.example.prm392_homebuddy_app.API;
 
 import com.example.prm392_homebuddy_app.model.Service;
+import com.example.prm392_homebuddy_app.model.ServiceRelatives;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -11,7 +14,7 @@ import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface ServiceService {
-    String SERVICES = "Service"; // "hanvien" là tên của table được tạo trong APIN
+    String SERVICES = "Service";
 
     @GET(SERVICES)
     Call<Service[]> getAllServices();
@@ -22,6 +25,8 @@ public interface ServiceService {
     @POST(SERVICES)
     Call<Service> createService(@Body Service service);
 
+    @GET(SERVICES + "/{id}")
+    Call<List<ServiceRelatives>> getAllServices(@Path("id") Object id);
 
     /*@PUT(TRAINEES + "/{id}")
     Call<Trainee> updateTrainees(@Path("id") Object id, @Body Trainee trainee);
