@@ -137,28 +137,6 @@ public class OrderActivity extends AppCompatActivity {
         billIntent.putExtra("note", note);
 
         startActivity(billIntent);
-
-        
-        CreateBookingRequest createBookingRequest = new CreateBookingRequest(price, formattedServiceDate, address, phone, note);
-        Call<BookingResponse> call = bookingAPI.checkOut(createBookingRequest);
-        call.enqueue(new Callback<BookingResponse>() {
-            @Override
-            public void onResponse(Call<BookingResponse> call, Response<BookingResponse> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    Log.d("OrderActivity", "Checkout successful: " + response.body().toString());
-                    Toast.makeText(OrderActivity.this, "Checkout successful!", Toast.LENGTH_SHORT).show();
-                } else {
-                    Log.e("OrderActivity", "Error: " + response.code() + " " + response.message());
-                    Toast.makeText(OrderActivity.this, "Checkout failed: " + response.message(), Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<BookingResponse> call, Throwable t) {
-                Log.e("OrderActivity", "Failure: " + t.getMessage());
-                Toast.makeText(OrderActivity.this, "Checkout failed: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
     }
 
     private void navigateBack() {

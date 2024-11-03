@@ -87,7 +87,7 @@
         android:layout_height="wrap_content"
         android:text="Order Sumary"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="40dp"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"

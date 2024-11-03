@@ -63,6 +63,7 @@ public class FinalBookingActivity extends AppCompatActivity {
     private Handler slideHandler = new Handler(Looper.getMainLooper());
     private ServiceService serviceService;
     private HelperAPI helperAPI;
+    private ImageView editAddress;
 
     private Button btnCheckOut;
     private BookingAPI bookingAPI;
@@ -83,6 +84,7 @@ public class FinalBookingActivity extends AppCompatActivity {
 
         viewPager = findViewById(R.id.viewPager);
         bookingAPI = ServiceRepository.getBookingAPI();
+        editAddress = findViewById(R.id.editAddress);
 
         textviewBlue = findViewById(R.id.textView11);
         String text = "By placing this order, you agree to our Term of Service and Operational Rules.";
@@ -106,6 +108,7 @@ public class FinalBookingActivity extends AppCompatActivity {
         String name = intent.getStringExtra("name");
         String phone = intent.getStringExtra("phone");
         String finalAddress = intent.getStringExtra("address");
+        String aa = finalAddress;
         String serviceDate = intent.getStringExtra("serviceDate");
         String note = intent.getStringExtra("note");
 
@@ -170,6 +173,15 @@ public class FinalBookingActivity extends AppCompatActivity {
         String userAddress = fullAddressTextView.getText().toString();
         calculateDistance(userAddress, helperAddress);
 
+        editAddress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(FinalBookingActivity.this, OrderActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
         btnCheckOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -188,6 +200,12 @@ public class FinalBookingActivity extends AppCompatActivity {
                                 Log.d("transactionId", transactionId);
                                 Intent intent = new Intent(FinalBookingActivity.this, PaymentResult.class);
                                 intent.putExtra("status", "success");
+                                intent.putExtra("selectedItem", selectedCartItem);
+                                intent.putExtra("name", name);
+                                intent.putExtra("phone", phone);
+                                intent.putExtra("address", aa);
+                                intent.putExtra("serviceDate", serviceDate);
+                                intent.putExtra("note", note);
                                 startActivity(intent);
 
                             }

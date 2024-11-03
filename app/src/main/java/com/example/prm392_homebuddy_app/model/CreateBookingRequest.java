@@ -5,27 +5,23 @@ import java.util.Date;
 
 public class CreateBookingRequest implements Serializable {
     public Double price;
-    public Date bookingDate;
-    public String  serviceDate;
     public String address;
     public String phone;
     public String note;
-    public String serviceName;
+    public Date bookingDate;
+    public String  serviceDate;
+    public int helperId;
+    public int userId;
 
-    public CreateBookingRequest(Double price, String  serviceDate, String address, String phone, String note) {
+    public CreateBookingRequest(Double price, String address, String phone, String note, Date bookingDate, String serviceDate, int helperId, int userId) {
         this.price = price;
-        this.serviceDate = serviceDate;
         this.address = address;
         this.phone = phone;
         this.note = note;
-    }
-
-    public String  getServiceDate() {
-        return serviceDate;
-    }
-
-    public void setServiceDate(String  serviceDate) {
+        this.bookingDate = bookingDate;
         this.serviceDate = serviceDate;
+        this.helperId = helperId;
+        this.userId = userId;
     }
 
     public Double getPrice() {
@@ -34,14 +30,6 @@ public class CreateBookingRequest implements Serializable {
 
     public void setPrice(Double price) {
         this.price = price;
-    }
-
-    public Date getBookingDate() {
-        return bookingDate;
-    }
-
-    public void setBookingDate(Date bookingDate) {
-        this.bookingDate = bookingDate;
     }
 
     public String getAddress() {
@@ -68,11 +56,35 @@ public class CreateBookingRequest implements Serializable {
         this.note = note;
     }
 
-    public String getServiceName() {
-        return serviceName;
+    public Date getBookingDate() {
+        return bookingDate;
     }
 
-    public void setServiceName(String serviceName) {
-        this.serviceName = serviceName;
+    public void setBookingDate(Date bookingDate) {
+        this.bookingDate = bookingDate;
+    }
+
+    public String getServiceDate() {
+        return serviceDate;
+    }
+
+    public void setServiceDate(String serviceDate) {
+        this.serviceDate = serviceDate;
+    }
+
+    public int getHelperId() {
+        return helperId;
+    }
+
+    public void setHelperId(int helperId) {
+        this.helperId = helperId;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }
