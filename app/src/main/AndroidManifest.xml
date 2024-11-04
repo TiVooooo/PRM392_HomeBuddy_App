@@ -24,7 +24,14 @@
             android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/Theme.PRM392_HomeBuddy_App">
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.BROWSABLE" />
+                <data android:scheme="demozpdk"
+                    android:host="app" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <activity android:name=".LoginActivity"/>
@@ -46,14 +53,7 @@
             android:name=".CartAcitivity"
             android:exported="true"
             android:theme="@style/Theme.PRM392_HomeBuddy_App">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <action android:name="android.intent.action.VIEW" />
-                <action android:name="android.intent.action.BROWSABLE" />
-                <data android:scheme="demozpdk"
-                    android:host="app" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity
             android:name=".FinalBookingActivity"

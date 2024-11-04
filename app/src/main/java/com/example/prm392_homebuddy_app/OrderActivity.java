@@ -44,7 +44,7 @@ public class OrderActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fragment_order);
+        setContentView(R.layout.order);
 
         edtName = findViewById(R.id.edtName);
         edtPhone = findViewById(R.id.edtPhone);

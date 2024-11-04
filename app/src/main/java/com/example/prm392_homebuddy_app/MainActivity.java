@@ -39,11 +39,14 @@ public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
     private CheckoutViewModel checkoutViewModel;
+    private int userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+        userId = getIntent().getIntExtra("USER_ID", -1);
 
         if (PreferenceUtils.isLoggedIn(this) && !PreferenceUtils.isTokenExpired(this)) {
             String role = PreferenceUtils.getUserRole(this);
@@ -54,7 +57,9 @@ public class MainActivity extends AppCompatActivity {
             startActivity(loginIntent);
             finish();
             return;
-        }       binding = ActivityMainBinding.inflate(getLayoutInflater());
+        }
+
+        binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.toolbar.getRoot());
 
@@ -97,6 +102,8 @@ public class MainActivity extends AppCompatActivity {
                     title.clearComposingText();
                     title.setText("Home");
                 } else if (destination.getId() == R.id.navigation_order) {
+                    Bundle args = new Bundle();
+                    args.putInt("USER_ID", userId);
                     title.setText("Dashboard");
                 } else if (destination.getId() == R.id.navigation_cleanup) {
                     title.clearComposingText();

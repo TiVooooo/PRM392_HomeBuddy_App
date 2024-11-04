@@ -19,6 +19,7 @@ import com.example.prm392_homebuddy_app.adapters.CartAdapter;
 import com.example.prm392_homebuddy_app.model.Cart;
 import com.example.prm392_homebuddy_app.model.CartResponse;
 import com.example.prm392_homebuddy_app.ui.order.OrderFragment;
+import com.example.prm392_homebuddy_app.utils.PreferenceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +61,7 @@ public class CartAcitivity extends AppCompatActivity {
         btnCheckOut.setEnabled(false);
 
         //chua co login userid
-        int userId = 1;
+        int userId = Integer.parseInt(PreferenceUtils.getUserId(this));;
         loadCartData(userId);
 
         back.setOnClickListener(new View.OnClickListener() {

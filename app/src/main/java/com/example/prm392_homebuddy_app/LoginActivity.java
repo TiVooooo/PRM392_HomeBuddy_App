@@ -91,6 +91,12 @@ public class LoginActivity extends AppCompatActivity {
                         Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
                         Toast.makeText(LoginActivity.this, "Login success!", Toast.LENGTH_SHORT).show();
                         mainIntent.putExtra("USER_ROLE", role);
+                        if(role == "User"){
+                            mainIntent.putExtra("user_id", userId);
+                        } else if (role == "Helper") {
+                            mainIntent.putExtra("helper_id", userId);
+                        }
+
                         startActivity(mainIntent);
                         finish();
                     } else {
@@ -108,6 +114,4 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-
-
 }

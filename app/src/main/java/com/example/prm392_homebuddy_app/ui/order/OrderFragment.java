@@ -30,6 +30,7 @@ import com.example.prm392_homebuddy_app.adapters.BookingAdapter;
 import com.example.prm392_homebuddy_app.constants.Constants;
 import com.example.prm392_homebuddy_app.model.BookingResponse;
 import com.example.prm392_homebuddy_app.model.CreateBookingRequest;
+import com.example.prm392_homebuddy_app.utils.PreferenceUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -48,6 +49,7 @@ public class OrderFragment extends Fragment {
     private BookingAPI bookingAPI;
     private ArrayList<BookingResponse> bookingList = new ArrayList<>();
     private int id;
+    private String role;
     private String adapterCond;
 
     public static OrderFragment newInstance() {
@@ -57,24 +59,20 @@ public class OrderFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.booking_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_order, container, false);
 
-        Bundle args = getArguments();
-        if (args != null) {
-            if (args.containsKey(Constants.HELPER_ID)) {
-                id = args.getInt(Constants.HELPER_ID, -1);
-                adapterCond = Constants.HELPER_ID;
-            } else if (args.containsKey(Constants.USER_ID)) {
-                id = args.getInt(Constants.USER_ID, -1);
-                adapterCond = Constants.USER_ID;
-            }
-        }
+        role = PreferenceUtils.getUserRole(getContext());
+        id = Integer.parseInt(PreferenceUtils.getUserId(getContext()));
 
         bookingAPI = ServiceRepository.getBookingAPI();
 
         recyclerView = view.findViewById(R.id.recyclerViewBookings);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
+        if(role.equals("User")){
+            adapterCond = Constants.USER_ID;
+        } else if (role.equals("Helper")) {
+            adapterCond = Constants.HELPER_ID;
+        }
         adapter = new BookingAdapter(getContext(), adapterCond);
         recyclerView.setAdapter(adapter);
 
@@ -85,11 +83,11 @@ public class OrderFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        if (adapterCond != null) {
-            if (adapterCond.equals(Constants.HELPER_ID)) {
-                getAllBookingsByHelper(1);
-            } else if (adapterCond.equals(Constants.USER_ID)) {
-                getAllBookingsByUser(1);
+        if (role != null) {
+            if (role.equals("Helper")) {
+                getAllBookingsByHelper(id);
+            } else if (role.equals("User")) {
+                getAllBookingsByUser(id);
             }
         } else {
             Log.e("OrderFragment", "adapterCond is null");
@@ -98,7 +96,7 @@ public class OrderFragment extends Fragment {
 
     private void getAllBookingsByHelper(int id) {
         try {
-            Call<BookingResponse[]> call = bookingAPI.getAllBookingsByHelperId(1);
+            Call<BookingResponse[]> call = bookingAPI.getAllBookingsByHelperId(id);
             call.enqueue(new Callback<BookingResponse[]>() {
                 @Override
                 public void onResponse(Call<BookingResponse[]> call, Response<BookingResponse[]> response) {

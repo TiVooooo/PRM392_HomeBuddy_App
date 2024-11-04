@@ -54,7 +54,8 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("androidx.cardview:cardview:1.0.0")
     implementation("com.google.android.material:material:1.10.0")
-    implementation(files("D:\\Learning Resource\\Term08\\PRM\\PROJECT-BU\\SDK\\zpdk-release-v3.1.aar"))
+
+    implementation(files("T:\\PRM392\\HomeBuddy\\zpdk-release-v3.1.aar"))
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
