@@ -9,6 +9,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,11 +26,14 @@ import com.example.prm392_homebuddy_app.API.BookingAPI;
 import com.example.prm392_homebuddy_app.API.ServiceRepository;
 import com.example.prm392_homebuddy_app.MainActivity;
 import com.example.prm392_homebuddy_app.R;
+import com.example.prm392_homebuddy_app.adapters.BookingAdapter;
+import com.example.prm392_homebuddy_app.constants.Constants;
 import com.example.prm392_homebuddy_app.model.BookingResponse;
 import com.example.prm392_homebuddy_app.model.CreateBookingRequest;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -38,12 +43,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class OrderFragment extends Fragment {
-    private EditText edtDate, edtName, edtPhone, edtAddress, edtServiceDate, edtNote;
-    private TextView tvTotalPrice;
-    private ImageView backIcon;
-    private Button btnPay;
-    private OrderViewModel mViewModel;
+    private RecyclerView recyclerView;
+    private BookingAdapter adapter;
     private BookingAPI bookingAPI;
+    private ArrayList<BookingResponse> bookingList = new ArrayList<>();
+    private int id;
+    private String adapterCond;
 
     public static OrderFragment newInstance() {
         return new OrderFragment();
@@ -52,134 +57,97 @@ public class OrderFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_order, container, false);
+        View view = inflater.inflate(R.layout.booking_list, container, false);
 
-        edtName = view.findViewById(R.id.edtName);
-        edtPhone = view.findViewById(R.id.edtPhone);
-        edtAddress = view.findViewById(R.id.edtAddress);
-        edtServiceDate = view.findViewById(R.id.edtServiceDate);
-        edtNote = view.findViewById(R.id.edtNote);
-        tvTotalPrice = view.findViewById(R.id.tvTotalPrice);
-        btnPay = view.findViewById(R.id.btnPay);
-        backIcon = view.findViewById(R.id.back_icon); // Initialize backIcon here
+        Bundle args = getArguments();
+        if (args != null) {
+            if (args.containsKey(Constants.HELPER_ID)) {
+                id = args.getInt(Constants.HELPER_ID, -1);
+                adapterCond = Constants.HELPER_ID;
+            } else if (args.containsKey(Constants.USER_ID)) {
+                id = args.getInt(Constants.USER_ID, -1);
+                adapterCond = Constants.USER_ID;
+            }
+        }
+
         bookingAPI = ServiceRepository.getBookingAPI();
 
-        edtServiceDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDatePickerDialog();
-            }
-        });
+        recyclerView = view.findViewById(R.id.recyclerViewBookings);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        btnPay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                handlePayment();
-            }
-        });
-
-        backIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navigateBack();
-            }
-        });
+        adapter = new BookingAdapter(getContext(), adapterCond);
+        recyclerView.setAdapter(adapter);
 
         return view;
     }
 
-    private void showDatePickerDialog() {
-        final Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int month = calendar.get(Calendar.MONTH);
-        int day = calendar.get(Calendar.DAY_OF_MONTH);
+    @Override
+    public void onResume() {
+        super.onResume();
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
-                new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int selectedYear, int selectedMonth, int selectedDay) {
-                        String selectedDate = String.format(Locale.getDefault(), "%02d/%02d/%d", selectedDay, selectedMonth + 1, selectedYear);
-                        edtServiceDate.setText(selectedDate);
-                    }
-                }, year, month, day);
-
-        datePickerDialog.show();
-    }
-
-    private void handlePayment() {
-        String name = edtName.getText().toString();
-        String phone = edtPhone.getText().toString();
-        String address = edtAddress.getText().toString();
-        String serviceDateString = edtServiceDate.getText().toString();
-        String note = edtNote.getText().toString();
-        String priceString = tvTotalPrice.getText().toString();
-
-        double price = 0.0;
-        Date serviceDate;
-
-        SimpleDateFormat inputDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-        SimpleDateFormat outputDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault()); // ISO 8601 format
-
-        try {
-            price = Double.parseDouble(priceString);
-            serviceDate = inputDateFormat.parse(serviceDateString);
-        } catch (NumberFormatException e) {
-            Log.e("CheckoutActivity", "Invalid price format: " + priceString);
-            return;
-        } catch (ParseException e) {
-            Log.e("CheckoutActivity", "Invalid date format: " + e.getMessage());
-            return;
+        if (adapterCond != null) {
+            if (adapterCond.equals(Constants.HELPER_ID)) {
+                getAllBookingsByHelper(1);
+            } else if (adapterCond.equals(Constants.USER_ID)) {
+                getAllBookingsByUser(1);
+            }
+        } else {
+            Log.e("OrderFragment", "adapterCond is null");
         }
-        String formattedServiceDate = outputDateFormat.format(serviceDate);
-        CreateBookingRequest createBookingRequest = new CreateBookingRequest(price, formattedServiceDate, address, phone, note);
-        Call<BookingResponse> call = bookingAPI.checkOut(createBookingRequest);
-        call.enqueue(new Callback<BookingResponse>() {
-            @Override
-            public void onResponse(Call<BookingResponse> call, Response<BookingResponse> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    Log.d("CheckoutActivity", "Checkout successful: " + response.body().toString());
-                } else {
-                    Log.e("CheckoutActivity", "Error: " + response.code() + " " + response.message());
+    }
+
+    private void getAllBookingsByHelper(int id) {
+        try {
+            Call<BookingResponse[]> call = bookingAPI.getAllBookingsByHelperId(1);
+            call.enqueue(new Callback<BookingResponse[]>() {
+                @Override
+                public void onResponse(Call<BookingResponse[]> call, Response<BookingResponse[]> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        bookingList.clear();
+                        for (BookingResponse bookingResponse : response.body()) {
+                            bookingList.add(bookingResponse);
+                        }
+                        adapter.setTasks(bookingList);
+                    } else {
+                        Log.e("OrderFragment", "Error: " + response.code() + " " + response.message());
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<BookingResponse> call, Throwable t) {
-                Log.e("CheckoutActivity", "Failure: " + t.getMessage());
-            }
-        });
+                @Override
+                public void onFailure(Call<BookingResponse[]> call, Throwable t) {
+                    Log.e("OrderFragment", "Network error: " + t.getMessage());
+                }
+            });
+        } catch (Exception exception) {
+            Log.e("OrderFragment", exception.getMessage());
+        }
     }
 
-    private void navigateBack() {
-        Intent intent = new Intent(getActivity(), MainActivity.class);
-        intent.putExtra("navigateTo", "cartFragment");
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-        getActivity().finish();
-    }
+    private void getAllBookingsByUser(int id) {
+        try {
+            Call<BookingResponse[]> call = bookingAPI.getAllBookingsByUserId(id);
+            call.enqueue(new Callback<BookingResponse[]>() {
+                @Override
+                public void onResponse(Call<BookingResponse[]> call, Response<BookingResponse[]> response) {
+                    if (response.isSuccessful() && response.body() != null) {
+                        bookingList.clear();
+                        for (BookingResponse bookingResponse : response.body()) {
+                            bookingList.add(bookingResponse);
+                        }
+                        adapter.setTasks(bookingList);
+                    } else {
+                        Log.e("OrderFragment", "Error: " + response.code() + " " + response.message());
+                    }
+                }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        edtDate = view.findViewById(R.id.edtBookingDate);
-
-        final Calendar c = Calendar.getInstance();
-        int year = c.get(Calendar.YEAR);
-        int month = c.get(Calendar.MONTH);
-        int day = c.get(Calendar.DAY_OF_MONTH);
-
-        String todayDate = day + "/" + (month + 1) + "/" + year;
-        edtDate.setText(todayDate);
-
-        edtDate.setFocusable(false);
-        edtDate.setClickable(false);
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mViewModel = new ViewModelProvider(this).get(OrderViewModel.class);
-        // TODO: Use the ViewModel
+                @Override
+                public void onFailure(Call<BookingResponse[]> call, Throwable t) {
+                    Log.e("OrderFragment", "Network error: " + t.getMessage());
+                }
+            });
+        } catch (Exception exception) {
+            Log.e("OrderFragment", exception.getMessage());
+        }
     }
 
 }
